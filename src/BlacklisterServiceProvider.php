@@ -3,18 +3,24 @@
 namespace NiclasTimm\Blacklister;
 
 use Illuminate\Support\ServiceProvider;
+use NiclasTimm\Blacklister\Console\InstallBlacklister;
 
 class BlacklisterServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'blacklister');
     }
 
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/config.php' => config_path('blacklister.php'),
+            ], 'config');
+
             $this->commands([
-                // ViewSchema::class
+                InstallBlacklister::class,
             ]);
         }
     }
