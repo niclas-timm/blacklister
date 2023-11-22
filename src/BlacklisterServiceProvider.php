@@ -23,5 +23,8 @@ class BlacklisterServiceProvider extends ServiceProvider
                 InstallBlacklister::class,
             ]);
         }
+
+        \Illuminate\Support\Facades\Validator::extend('blacklist', Validator::class.'@validate');
+        \Illuminate\Support\Facades\Validator::replacer('blacklist', Validator::class."@message");
     }
 }
