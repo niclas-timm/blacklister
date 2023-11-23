@@ -50,6 +50,11 @@ class Blacklister
         Cache::put($this->cacheKey, $json, now()->addMinutes($this->cacheTTL));
     }
 
+    public function overwriteBlacklistFile(array $newBlacklist): void
+    {
+        file_put_contents($this->blacklistPath, json_encode($newBlacklist));
+    }
+
     public function invalidateCache(): void
     {
         Cache::forget($this->cacheKey);
