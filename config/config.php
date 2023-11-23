@@ -11,7 +11,8 @@ return [
     'cache_key' => 'blacklister',
 
     // The time the blacklist should be cached.
-    'cache_ttl' => '',
+    'cache_ttl' => 60 * 24 * 4,
 
-
+    // The validation message presented to the user when the blacklist validation fails.
+    'validation_message' => 'The value is not allowed. Please use another one.',
 ];

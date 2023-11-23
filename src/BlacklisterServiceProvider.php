@@ -4,6 +4,8 @@ namespace NiclasTimm\Blacklister;
 
 use Illuminate\Support\ServiceProvider;
 use NiclasTimm\Blacklister\Console\InstallBlacklister;
+use NiclasTimm\Blacklister\Console\UpdateBlacklisterCache;
+use NiclasTimm\Blacklister\Console\VerifyBlacklisterSettings;
 
 class BlacklisterServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,8 @@ class BlacklisterServiceProvider extends ServiceProvider
 
             $this->commands([
                 InstallBlacklister::class,
+                VerifyBlacklisterSettings::class,
+                UpdateBlacklisterCache::class,
             ]);
         }
 
