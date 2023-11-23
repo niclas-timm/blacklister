@@ -24,7 +24,9 @@ class Validator
 
     private function getDomain(string $value): string
     {
-        return explode('@', $value)[1];
+        $values = explode('@', $value);
+
+        return $values[1] ?? $values[0];
     }
 
     public function message($message, $attribute, $rule, $parameters)

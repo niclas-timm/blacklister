@@ -1,0 +1,10 @@
+{
+  "emails": [
+    "block@me.com",
+    "block@you.com"
+  ],
+  "domains": [
+    "block-me.com",
+    "i-will-block-you.com"
+  ]
+}

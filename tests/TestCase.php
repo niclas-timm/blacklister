@@ -2,7 +2,8 @@
 
 namespace NiclasTimm\Blacklister\Tests;
 
-use NiclasTimm\EloquentSchemaViewer\EloquentSchemaViewerServiceProvider;
+use Illuminate\Http\Request;
+use NiclasTimm\Blacklister\BlacklisterServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -12,10 +13,21 @@ class TestCase extends \Orchestra\Testbench\TestCase
         // additional setup
     }
 
-    protected function getPackageProviders($app)
+    public function defineRoutes($router): void
+    {
+        $router->post('/test', function (Request $request) {
+            $request->validate([
+                'email' => 'blacklist',
+            ]);
+
+            return response(status: 200);
+        });
+    }
+
+    protected function getPackageProviders($app): array
     {
         return [
-            EloquentSchemaViewerServiceProvider::class,
+            BlacklisterServiceProvider::class,
         ];
     }
 
