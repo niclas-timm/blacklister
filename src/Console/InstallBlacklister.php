@@ -29,6 +29,8 @@ class InstallBlacklister extends Command
             }
         }
 
+        $this->createBlacklistFile();
+
         $this->info('Installed Blacklister');
     }
 
@@ -57,5 +59,21 @@ class InstallBlacklister extends Command
             'Config file already exists. Do you want to overwrite it?',
             false
         );
+    }
+
+    private function createBlacklistFile(): void
+    {
+        $path = config('blacklister.blacklist_path');
+
+        if (file_exists($path)) {
+            $this->line("Blacklist file already exists. Won't override");
+
+            return;
+        }
+
+        $stub = file_get_contents(__DIR__.'/../../stubs/blacklist.json');
+
+        file_put_contents($path, $stub);
+        $this->info('Created blacklist file under '.$path);
     }
 }
