@@ -1,6 +1,7 @@
 {
   "name": "niclas-timm/blacklister",
-  "version": "0.1.1",
+  "version": "1.0.0",
+  "description": "Validate emails against a blacklist in your Laravel application",
   "type": "library",
   "license": "MIT",
   "autoload": {
