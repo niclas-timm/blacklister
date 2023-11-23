@@ -78,7 +78,7 @@ If you use the `backlister:add` utility-command, this happens automatically. If 
 need to execute the following command thereafter:
 
 ```bash
-php artian blacklister:update-cache
+php artisan blacklister:update-cache
 ```
 
 > [!WARNING]  
