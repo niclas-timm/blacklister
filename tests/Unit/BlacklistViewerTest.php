@@ -4,7 +4,7 @@ namespace NiclasTimm\Blacklister\Tests\Unit;
 
 use NiclasTimm\Blacklister\Tests\TestCase;
 
-class ConsoleTests extends TestCase
+class BlacklistViewerTest extends TestCase
 {
 
     /** @test */
