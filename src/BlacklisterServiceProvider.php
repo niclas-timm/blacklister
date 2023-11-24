@@ -4,6 +4,7 @@ namespace NiclasTimm\Blacklister;
 
 use Illuminate\Support\ServiceProvider;
 use NiclasTimm\Blacklister\Console\AddToBlacklist;
+use NiclasTimm\Blacklister\Console\ExportBlackList;
 use NiclasTimm\Blacklister\Console\InstallBlacklister;
 use NiclasTimm\Blacklister\Console\RemoveFromBlacklist;
 use NiclasTimm\Blacklister\Console\UpdateBlacklisterCache;
@@ -31,6 +32,7 @@ class BlacklisterServiceProvider extends ServiceProvider
                 AddToBlacklist::class,
                 ViewBlacklist::class,
                 RemoveFromBlacklist::class,
+                ExportBlackList::class,
             ]);
         }
 
