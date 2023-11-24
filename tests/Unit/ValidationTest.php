@@ -10,8 +10,6 @@ class ValidationTest extends TestCase
     /** @test */
     public function it_blocks_blacklisted_domains()
     {
-        Config::set('blacklister.blacklist_path', __DIR__.'/../fixtures/blacklist.json');
-
         $this->post('/test', [
             'email' => 'test@block-me.com',
         ])->assertInvalid();

@@ -3,6 +3,7 @@
 namespace NiclasTimm\Blacklister\Tests;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use NiclasTimm\Blacklister\BlacklisterServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -10,7 +11,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     public function setUp(): void
     {
         parent::setUp();
-        // additional setup
+        Config::set('blacklister.blacklist_path', __DIR__.'/fixtures/blacklist.json');
     }
 
     public function defineRoutes($router): void
