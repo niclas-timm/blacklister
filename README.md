@@ -46,6 +46,15 @@ public function store(Request $request) {
 }
 ```
 
+### 👀 Viewing the blacklist
+
+One way is of course to just look at your JSON file. Another way is to run the following command to view the blacklist
+in the console:
+
+```bash
+php artisan blacklister:view
+```
+
 ### ➕ Adding new values to the blacklist
 
 You can either paste the values **directly into the JSON file**, or use the following utility command:
@@ -54,7 +63,7 @@ You can either paste the values **directly into the JSON file**, or use the foll
 php artisan blacklister:add {values} {--T|type}
 ```
 
-| Argument | Description                                                                                        | Description                                       |
+| Argument | Description                                                                                        | Examples                                          |
 |----------|----------------------------------------------------------------------------------------------------|---------------------------------------------------|
 | values   | The values you want to add to the blacklist. Multiple values are allowed.                          | `block@me.com`, `block@me.com leave-me@alone.com` |
 | type     | The type of values you want to add to the blacklist (`emails` or `domains`). Defaults to `emails`. | `--type="emails"`,`--type="domains"`              |
@@ -69,13 +78,34 @@ php artisan blacklister:add block@me.com leave-me@alone.com --type="emails"
 php artisan blacklister:add blockme.com --type="domains"
 ```
 
+### ➖ Removing values from the blacklist
+
+You can either remove the values **directly into the JSON file**, or use the following utility command:
+
+```bash
+php artisan blacklister:remove {values}
+```
+
+| Argument | Description                                                                    | Examples                                          |
+|----------|--------------------------------------------------------------------------------|---------------------------------------------------|
+| values   | The values you want to remove from the blacklist. Multiple values are allowed. | `block@me.com`, `block@me.com leave-me@alone.com` |
+
+For example:
+
+```bash
+php artisan blacklister:remove unblock@me.com i-am-not-dangerous.com
+```
+
+This command will automatically detect if the value is an individual email or a domain and remove the corresponding data
+from your blacklist file.
+
 ### 🔄 Updating cache
 
 If the cache for Blacklister is enabled (see below), the values from the JSON file are cached. This means that you need
 to update the cache whenever the blacklist JSON file changes.
 
-If you use the `backlister:add` utility-command, this happens automatically. If you update the JSON file manually, you
-need to execute the following command thereafter:
+If you use the `backlister:add` or `blacklister:remove` utility-commands, this happens automatically. If you update the
+JSON file manually, you need to execute the following command thereafter:
 
 ```bash
 php artisan blacklister:update-cache
