@@ -116,6 +116,42 @@ php artisan blacklister:update-cache
 > If you update your blacklist frequently, it might make sense to add `php artian blacklister:update-cache` to your
 > deployment script.
 
+### 💾 Exporting to CSV
+
+You can export your blacklist to a csv file by executing the following command
+
+```
+php artisan blacklister:export {file}
+```
+
+Where `filename` is the path to the csv file you want to export your blacklist to.
+
+For example:
+
+```
+php artisan blacklister:export /my/export/directory/blacklister.csv
+```
+
+### 💽 Importing from csv
+
+Need to import your blacklist from a csv file? No problem. Just execute
+
+```
+php artisan blacklister:import {file}
+```
+
+Where `file` is the path to the csv file you want to import your blacklist from.
+
+Example:
+
+```
+php artisan blacklister:import /my/import/directory/blacklister.csv
+```
+
+> [!WARNING]  
+> Your csv file must have a specific format: It must have the headers "emails" and "domains".
+> For an example file look at `/tests/fixtures/import_data.csv`
+
 ## ⚙️ Configuration
 
 During the installation process, Blacklister creates the `config/blacklister.php` file for you, which defines how

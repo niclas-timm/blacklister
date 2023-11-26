@@ -10,7 +10,7 @@ class BlacklistExportTest extends TestCase
     public function it_can_export_the_blacklist()
     {
         $path = __DIR__.'/../fixtures/export.csv';
-        $this->artisan('blacklister:export --filename="'.$path.'"')->assertOk();
+        $this->artisan('blacklister:export '.$path)->assertOk();
         $this->assertTrue(file_exists($path));
         unlink($path);
     }
@@ -23,7 +23,7 @@ class BlacklistExportTest extends TestCase
         fclose($file);
         $content = file_get_contents($path);
         $this->assertTrue($content === '');
-        $this->artisan('blacklister:export --filename="'.$path.'"')
+        $this->artisan('blacklister:export '.$path)
             ->expectsConfirmation('File already exist. Overwrite?', 'yes')
             ->assertOk();
         $content = file_get_contents($path);

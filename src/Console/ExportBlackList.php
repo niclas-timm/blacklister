@@ -7,7 +7,7 @@ use NiclasTimm\Blacklister\Blacklister;
 
 class ExportBlackList extends Command
 {
-    protected $signature = 'blacklister:export {--f|filename=}';
+    protected $signature = 'blacklister:export {file}';
 
     protected $description = 'Export your blacklist as a csv file';
 
@@ -18,7 +18,7 @@ class ExportBlackList extends Command
 
     public function handle()
     {
-        $filename = $this->option('filename');
+        $filename = $this->argument('file');
 
         if (file_exists($filename)) {
             if (!$this->confirm('File already exist. Overwrite?', 'no')) {
