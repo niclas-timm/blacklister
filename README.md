@@ -99,6 +99,14 @@ php artisan blacklister:remove unblock@me.com i-am-not-dangerous.com
 This command will automatically detect if the value is an individual email or a domain and remove the corresponding data
 from your blacklist file.
 
+### 🍪 Using cookies
+
+Ok, so you blocked someone. Now what? They can just use another email address and register anyways, right? Wrong! You
+can set `enable_cookies` to `true` config file. Then, when a blacklister validation fails, a cookie will be set in the
+users browser. Afterward, every validation will fail for as long as the cookie is valid. So if the user tries to
+register with another email, it won't work. Obviously, this solution is not bulletproof. The user could use
+incognito mode or use another browser. But it's better than nothing.
+
 ### 🔄 Updating cache
 
 If the cache for Blacklister is enabled (see below), the values from the JSON file are cached. This means that you need
@@ -157,13 +165,16 @@ php artisan blacklister:import /my/import/directory/blacklister.csv
 During the installation process, Blacklister creates the `config/blacklister.php` file for you, which defines how
 blacklister behaves.
 
-| Name               | Type    | Description                                                                                         | Example                                               |
-|--------------------|---------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| blacklist_path     | string  | The absolute path to your blacklist file.                                                           | `storage_path('framework/email_blacklist.json')`      |
-| enable_cache       | boolean | If true, the content of the blacklist json file will be cached.                                     | `true`                                                |
-| cache_key          | string  | Defines under which cache key the data will be cached (if cache is enabled).                        | `'blacklist'`                                         |
-| cache_ttl          | int     | The time in minutes for how long the blacklist will be cached (if cache is enabled).                | `60 * 24 * 4` (4 days)                                |
-| validation_message | string  | The validation message that will be displayed if the validation fails (is translatable by default). | `'The value is not allowed. Please use another one.'` |
+| Name               | Type    | Description                                                                                                                                     | Example                                               |
+|--------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| blacklist_path     | string  | The absolute path to your blacklist file.                                                                                                       | `storage_path('framework/email_blacklist.json')`      |
+| enable_cache       | boolean | If true, the content of the blacklist json file will be cached.                                                                                 | `true`                                                |
+| cache_key          | string  | Defines under which cache key the data will be cached (if cache is enabled).                                                                    | `'blacklist'`                                         |
+| cache_ttl          | int     | The time in minutes for how long the blacklist will be cached (if cache is enabled).                                                            | `60 * 24 * 4` (4 days)                                |
+| validation_message | string  | The validation message that will be displayed if the validation fails (is translatable by default).                                             | `'The value is not allowed. Please use another one.'` |
+| enable_cookies     | bool    | If true, a cookie will be set when the blacklister validation fails. Afterwards, every validation will fail for as long as the cookie is valid. | `true`                                                |
+| cookie_name        | string  | The name of the cookie that will be set.                                                                                                        | `blacklister`                                         |
+| cookie_ttl         | int     | The time in seconds for how long the cookie will be valid.                                                                                      | `60 * 24 * 30` (30 days)                              |
 
 You can check if your configuration is valid by executing the following command:
 

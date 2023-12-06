@@ -13,13 +13,25 @@ class Validator
 
     public function validate($attribute, $value, $parameters): bool
     {
+        if ($this->blacklister->hasBlockingCookie()) {
+            return false;
+        }
+
         $blacklist = $this->blacklister->getBlacklist();
 
         if (in_array($this->getDomain($value), $blacklist['domains'])) {
             return false;
         }
 
-        return !in_array($value, $blacklist['emails']);
+        $isBlacklisted = in_array($value, $blacklist['emails']);
+
+        if (!$isBlacklisted) {
+            return true;
+        }
+
+        $this->blacklister->setBlockingCookie();
+
+        return false;
     }
 
     private function getDomain(string $value): string

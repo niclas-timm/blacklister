@@ -3,6 +3,7 @@
 namespace NiclasTimm\Blacklister;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 
 class Blacklister
 {
@@ -16,6 +17,12 @@ class Blacklister
 
     private string $validationMessage;
 
+    private bool $cookiesEnabled;
+
+    private string $cookieName;
+
+    private int $cookieTTL;
+
     public function __construct()
     {
         $this->cacheEnabled = config('blacklister.enable_cache');
@@ -23,6 +30,9 @@ class Blacklister
         $this->cacheTTL = (int) config('blacklister.cache_ttl', 0);
         $this->blacklistPath = config('blacklister.blacklist_path', '');
         $this->validationMessage = config('blacklister.validation_message', '');
+        $this->cookiesEnabled = config('blacklister.enable_cookies', false);
+        $this->cookieName = config('blacklister.cookie_name', 'blacklister');
+        $this->cookieTTL = (int) config('blacklister.cookie_ttl', 60 * 24 * 30);
     }
 
     public function getBlacklist(): array
@@ -89,6 +99,23 @@ class Blacklister
         }
 
         return !$hasErrors;
+    }
+
+    public function hasBlockingCookie(): bool
+    {
+        return $this->cookiesEnabled && request()->cookies->has($this->cookieName);
+    }
+
+    public function setBlockingCookie(): void
+    {
+        if ($this->areCookiesEnabled()) {
+            Cookie::queue($this->cookieName, 'blocked', $this->cookieTTL);
+        }
+    }
+
+    public function areCookiesEnabled(): bool
+    {
+        return $this->cookiesEnabled;
     }
 
     public function hasValidCacheKey(): bool
